@@ -1,6 +1,12 @@
 # prometheus-operator-alerts
 Add slack or smtp alerts to prometheus operator
 
+The way you would set it up globally in your organization is to have 1 alertmanager cluster, and N prometheus servers ... the prometheus servers select the servicemonitors and rules across namespaces (in whatever suits your organization).
+
+The Prometheus Operator uses PrometheusRule CRDs. This addresses the need for rule syntax validation and rule selection across namespaces. It is quite handy so teams can self-service and add alerts.
+
+For a pager duty per service, the team would create a PrometheusRule in their app's namespace with a single alertmanager route, using an alert label to choose the pagerduty notifier, or same with slack channel. That way you only need one alertmanager config for everything.
+
 ## deploy.sh
 
 This script will use helm to install the prometheus operator and kube-prometheus charts, and configure them to send alerts to slack OR email (not both).
@@ -8,6 +14,19 @@ This script will use helm to install the prometheus operator and kube-prometheus
 ## generate-alert-manager-config-secret.sh
 
 This script will replace the alert-manager secret with a revised version. Handy to iterate over solutions rapidly.
+
+## Sample Slack Alert
+
+Let's have a look in more detail:
+
+<img src="./assets/images/prom_alert.png"/>
+
+* **Summary**, here we can see a clear concise summary of the issue, this is far more readable than the formatting of the actual alert name in Prometheus allows.
+* **Description**, allows us to detail more relevant information.
+* **Severity**, a user defined field that allows us to perform some basic classification of alerts and can be used to inform notification preferences.
+* **Graph**, a link to the relevant query using the Prometheus graph interface, this usually requires some additional config that's detailed further down.
+* **Runbook**, allows you to specify the URL of a runbook that's associated to an alert. For example; a disk usage alert on a database server could link through to a runbook on how to safely clear it down. This can be super useful to ensuring smooth and predictable responses to common issues from on-call teams.
+* **Details**, in this section we range through additional fields that are present to ensure we are representing all the essential info.
 
 ### What else?
 
