@@ -1,0 +1,4 @@
+!.gitignore
+helm/*
+!helm/kube-prometheus-values-env.yaml
+!helm/prometheus-add-scrape.yaml

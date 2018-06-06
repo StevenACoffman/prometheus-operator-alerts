@@ -1,0 +1,11 @@
+## External labels to add to any time series or alerts when communicating with external systems
+##
+prometheus:
+  externalLabels:
+    cluster: ${ENVNAME}
+  additionalScrapeConfigs:
+    name: additional-scrape-configs
+    key: prometheus-add-scrape.yaml
+alertmanager:
+  config:
+    ${ALERTMANAGER_YAML}
