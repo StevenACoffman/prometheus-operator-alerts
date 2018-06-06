@@ -11,9 +11,11 @@ This script will replace the alert-manager secret with a revised version. Handy 
 
 ### What else?
 
-If you install the vanilla prometheus operator and kube-prometheus, it's hard to know what all is where. It's also hard to compare it to solutions like [the non-helm prometheus operator](https://github.com/camilb/prometheus-kubernetes) or [other prometheus setups](https://github.com/kayrus/prometheus-kubernetes).
+You should know the prometheus operator does not support annotation based scrapes [because reasons](https://github.com/coreos/kube-prometheus/pull/16#issuecomment-305933103).
 
 You should also know that there is work to centralize Grafana dashboards and Prometheus alerts for Kubernetes in the [monitoring-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin) project.
+
+If you install the vanilla prometheus operator and kube-prometheus, it's hard to know what all is where. It's also hard to compare it to solutions like [the non-helm prometheus operator](https://github.com/camilb/prometheus-kubernetes) or [other prometheus setups](https://github.com/kayrus/prometheus-kubernetes). You can run these to see what they configure out of the box:
 
 
 ```
