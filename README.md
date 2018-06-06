@@ -1,6 +1,21 @@
 # prometheus-operator-alerts
 Add slack or smtp alerts to prometheus operator
 
+## deploy.sh
+
+This script will use helm to install the prometheus operator and kube-prometheus charts, and configure them to send alerts to slack OR email (not both).
+
+## generate-alert-manager-config-secret.sh
+
+This script will replace the alert-manager secret with a revised version. Handy to iterate over solutions rapidly.
+
+### What else?
+
+If you install the vanilla prometheus operator and kube-prometheus, it's hard to know what all is where. It's also hard to compare it to solutions like [the non-helm prometheus operator](https://github.com/camilb/prometheus-kubernetes) or [other prometheus setups](https://github.com/kayrus/prometheus-kubernetes).
+
+You should also know that there is work to centralize Grafana dashboards and Prometheus alerts for Kubernetes in the [monitoring-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin) project.
+
+
 ```
 kubectl get secret  alertmanager-kube-prometheus -o go-template='{{ index .data "alertmanager.yaml" }}' | base64 -D
 ```
