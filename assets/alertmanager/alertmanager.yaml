@@ -37,7 +37,7 @@ receivers:
       {{ range .Alerts }}
         *Alert:* {{ if .Annotations.summary }}{{ .Annotations.summary }} - {{ end }}`{{ .Labels.severity }}`
         *Description:* {{ .Annotations.description }}{{ .Annotations.message }}
-        *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>{{ if .Annotations.runbook }} *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>{{ end }}
+        *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>{{ if or .Annotations.runbook .Annotations.runbook_url }} *Runbook:* <{{ .Annotations.runbook }}{{ .Annotations.runbook_url }}|:spiral_note_pad:>{{ end }}
         *Details:*
         {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
         {{ end }}
