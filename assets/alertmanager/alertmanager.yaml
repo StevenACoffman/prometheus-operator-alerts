@@ -35,7 +35,7 @@ receivers:
     pretext: '{{ .CommonAnnotations.summary }}'
     text: |-
       {{ range .Alerts }}
-        *Alert:* {{ if .Annotations.summary }}{{ .Annotations.summary }} - {{ end }}`{{ .Labels.severity }}`
+        {{- if .Annotations.summary }}*Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`{{- end }}
         *Description:* {{ .Annotations.description }}{{ .Annotations.message }}
         *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>{{ if or .Annotations.runbook .Annotations.runbook_url }} *Runbook:* <{{ .Annotations.runbook }}{{ .Annotations.runbook_url }}|:spiral_note_pad:>{{ end }}
         *Details:*
